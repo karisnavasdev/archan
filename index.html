@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arc Chan ($ARCHAN)</title>
+  <meta name="description" content="Arc Chan ($ARCHAN) — a celestial guardian on Arc chain. Serene, mysterious, and connected to the stars." />
+  <link rel="icon" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #eef4ff;
+      --muted: #b7c6e4;
+      --deep: #050814;
+      --navy: #0c1633;
+      --violet: #b7a6ff;
+      --cyan: #8ee7ff;
+      --silver: #f4f7ff;
+      --line: rgba(220, 232, 255, 0.28);
+      --glass: rgba(12, 22, 48, 0.55);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Outfit", sans-serif;
+      background:
+        radial-gradient(900px 500px at 15% -10%, rgba(140, 120, 255, 0.28), transparent 60%),
+        radial-gradient(800px 480px at 90% 8%, rgba(90, 190, 255, 0.22), transparent 55%),
+        radial-gradient(700px 500px at 50% 110%, rgba(90, 70, 180, 0.25), transparent 50%),
+        var(--deep);
+      min-height: 100vh;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font-family: inherit; }
+
+    .sky {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: white;
+      opacity: 0.7;
+      animation: twinkle 3.5s ease-in-out infinite;
+    }
+    .shard {
+      position: absolute;
+      width: 90px;
+      height: 140px;
+      background: linear-gradient(160deg, rgba(255,255,255,0.28), rgba(150,190,255,0.05) 40%, rgba(170,140,255,0.18));
+      clip-path: polygon(50% 0, 100% 28%, 78% 100%, 22% 100%, 0 28%);
+      filter: blur(0.2px);
+      opacity: 0.35;
+      animation: float 14s ease-in-out infinite;
+    }
+    @keyframes twinkle { 50% { opacity: 0.15; } }
+    @keyframes float {
+      50% { transform: translateY(-18px) rotate(4deg); }
+    }
+
+    .wrap { position: relative; z-index: 1; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 6vw;
+      background: rgba(5, 8, 20, 0.55);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: Cinzel, serif;
+      letter-spacing: 0.08em;
+    }
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.45), 0 0 18px rgba(150, 190, 255, 0.55);
+    }
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .nav-links a:hover { color: white; }
+
+    .hero { padding: 28px 6vw 0; }
+    .banner-frame {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.35),
+        0 30px 80px rgba(40, 80, 180, 0.35),
+        inset 0 0 40px rgba(255,255,255,0.08);
+    }
+    .banner-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5,8,20,0.88) 0%, rgba(5,8,20,0.05) 42%, transparent 60%);
+      pointer-events: none;
+    }
+    .banner-frame img { width: 100%; height: min(68vh, 640px); object-fit: cover; object-position: center 30%; }
+    .hero-copy {
+      position: absolute;
+      z-index: 2;
+      left: 40px;
+      bottom: 32px;
+      right: 40px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(8, 14, 32, 0.45);
+      backdrop-filter: blur(8px);
+      letter-spacing: 0.22em;
+      font-size: 12px;
+      color: var(--cyan);
+    }
+    h1 {
+      margin: 12px 0 6px;
+      font-family: Cinzel, serif;
+      font-weight: 700;
+      font-size: clamp(42px, 6vw, 78px);
+      letter-spacing: 0.06em;
+      line-height: 0.95;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.45);
+    }
+    .tagline { max-width: 560px; color: #d5e2ff; font-weight: 300; margin: 0; }
+
+    main { padding: 28px 6vw 80px; display: grid; gap: 28px; }
+
+    .crystal {
+      position: relative;
+      border-radius: 26px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03) 28%, rgba(10, 18, 40, 0.35));
+      backdrop-filter: blur(18px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.55),
+        inset 0 -20px 40px rgba(120, 90, 220, 0.08),
+        0 18px 50px rgba(0, 0, 0, 0.28);
+    }
+    .crystal::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(160,200,255,0.15) 35%, rgba(190,160,255,0.7) 70%, rgba(255,255,255,0.2));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .pad { padding: 28px; }
+
+    .kicker {
+      font-size: 12px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin: 0 0 8px;
+    }
+    h2 {
+      margin: 0 0 8px;
+      font-family: Cinzel, serif;
+      font-weight: 500;
+      font-size: clamp(28px, 3vw, 40px);
+    }
+    .sub { color: var(--muted); margin: 0 0 22px; max-width: 640px; }
+
+    .ca-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .ca-box {
+      flex: 1;
+      min-width: 240px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(4, 8, 20, 0.55);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      letter-spacing: 0.04em;
+      font-size: 16px;
+      word-break: break-all;
+    }
+    .btn {
+      border: 0;
+      cursor: pointer;
+      color: #07101f;
+      background: linear-gradient(180deg, #ffffff, #c9dcff 45%, #9eb6ff);
+      padding: 16px 22px;
+      border-radius: 16px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      box-shadow: 0 8px 24px rgba(150, 190, 255, 0.35), inset 0 1px 0 white;
+    }
+    .btn:hover { filter: brightness(1.05); }
+    .btn.ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+    .note { margin: 14px 0 0; color: var(--muted); font-size: 13px; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .step {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      min-height: 180px;
+    }
+    .num {
+      font-family: Cinzel, serif;
+      color: var(--cyan);
+      font-size: 22px;
+    }
+    .step h3 { margin: 10px 0 8px; font-size: 18px; font-weight: 500; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+
+    .about {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .portrait {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 28px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.4), 0 0 40px rgba(140, 170, 255, 0.35);
+    }
+    .about p { color: #d5def3; line-height: 1.75; font-weight: 300; }
+
+    .chart-frame {
+      border-radius: 18px;
+      overflow: hidden;
+      min-height: 460px;
+      background: rgba(3, 6, 16, 0.65);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .chart-frame iframe { width: 100%; height: 520px; border: 0; display: block; }
+    .await {
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .orb {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      background:
+        radial-gradient(circle at 35% 30%, white, rgba(160, 220, 255, 0.2) 28%, transparent 30%),
+        radial-gradient(circle at 50% 60%, #7ec8ff, #6a5cff 70%);
+      box-shadow: 0 0 30px rgba(130, 180, 255, 0.7);
+    }
+
+    .socials { display: flex; gap: 14px; flex-wrap: wrap; }
+    .social {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .social strong { display: block; font-weight: 500; }
+    .social span { color: var(--muted); font-size: 13px; }
+    .social small { letter-spacing: 0.14em; color: var(--cyan); font-size: 12px; }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 10px 20px 40px;
+    }
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(255,255,255,0.92);
+      color: #07101f;
+      padding: 12px 18px;
+      border-radius: 999px;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s ease;
+      z-index: 30;
+      font-weight: 600;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .steps, .about { grid-template-columns: 1fr; }
+      .hero-copy { left: 18px; right: 18px; bottom: 18px; }
+      .banner-frame img { height: 52vh; }
+      nav, .hero, main { padding-left: 16px; padding-right: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sky" id="sky" aria-hidden="true"></div>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#top">
+        <img src="logo.png" alt="Arc Chan logo" />
+        Arc Chan
+      </a>
+      <div class="nav-links">
+        <a href="#buy">How to Buy</a>
+        <a href="#about">About</a>
+        <a href="#chart">Chart</a>
+        <a href="#socials">Socials</a>
+      </div>
+      <button class="btn" id="nav-copy" type="button">COPY CA</button>
+    </nav>
+
+    <header class="hero" id="top">
+      <div class="banner-frame">
+        <img src="banner.png" alt="Arc Chan standing in a celestial city, holding a glowing arc orb" />
+        <div class="hero-copy">
+          <div class="pill">ARC CHAIN · $ARCHAN</div>
+          <h1>Arc Chan</h1>
+          <p class="tagline">A serene guide between dreams, space, and reality.</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="crystal pad" id="ca">
+        <p class="kicker">Contract</p>
+        <h2>Copy CA</h2>
+        <p class="sub">Official Arc Chan contract on Arc. Always match this address before you swap.</p>
+        <div class="ca-row">
+          <div class="ca-box" id="ca-text">0xcomingsoon</div>
+          <button class="btn" id="copy" type="button">COPY</button>
+        </div>
+        <p class="note" id="ca-note"></p>
+      </section>
+
+      <section class="crystal pad" id="buy">
+        <p class="kicker">Guide</p>
+        <h2>How to Buy</h2>
+        <p class="sub">Arc uses USDC for gas. Buy only with the contract above — never by ticker alone.</p>
+        <div class="steps">
+          <article class="step">
+            <div class="num">01</div>
+            <h3>Wallet</h3>
+            <p>Install MetaMask, Rabby, or another EVM wallet and keep your seed phrase offline.</p>
+          </article>
+          <article class="step">
+            <div class="num">02</div>
+            <h3>Arc network</h3>
+            <p>Add Arc to your wallet and bridge USDC. On Arc, USDC pays for gas.</p>
+          </article>
+          <article class="step">
+            <div class="num">03</div>
+            <h3>Paste the CA</h3>
+            <p>Open a DEX on Arc, such as Uniswap, and paste the official contract. Do not search the name.</p>
+          </article>
+          <article class="step">
+            <div class="num">04</div>
+            <h3>Swap</h3>
+            <p>Swap USDC for $ARCHAN, check the amount, and confirm. Start small and verify the pair.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="crystal pad" id="about">
+        <p class="kicker">Lore</p>
+        <h2>About</h2>
+        <div class="about">
+          <img class="portrait" src="logo.png" alt="Portrait of Arc Chan" />
+          <div>
+            <p>A graceful celestial guardian with long, flowing midnight-blue hair and luminous violet eyes. Dressed in an elegant navy uniform accented with silver details and a mysterious arc-shaped emblem, she carries a calm yet powerful presence. In her hand floats a radiant cosmic orb, glowing with blue and violet starlight as magical energy spirals around it.</p>
+            <p>Surrounded by an ethereal world of shining skies, ancient celestial architecture, drifting clouds, and sparkling constellations, she feels like a guide between worlds—serene, mysterious, and connected to the stars. Her gentle smile contrasts with the immense power she holds, giving her the presence of someone who protects the boundary between dreams, space, and reality.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="crystal pad" id="chart">
+        <p class="kicker">Market</p>
+        <h2>Chart</h2>
+        <p class="sub">Live Dexscreener embed for the Arc pair. It appears when the contract address is live.</p>
+        <div class="chart-frame" id="chart-frame"></div>
+      </section>
+
+      <section class="crystal pad" id="socials">
+        <p class="kicker">Community</p>
+        <h2>Socials</h2>
+        <p class="sub">Follow the guardian across the stars.</p>
+        <div class="socials" id="socials-row"></div>
+      </section>
+    </main>
+
+    <footer>Arc Chan · $ARCHAN · Arc chain. Memecoins are speculative. This is not financial advice.</footer>
+  </div>
+  <div class="toast" id="toast">Contract copied</div>
+
+  <script>
+    const CONFIG = {
+      name: "Arc Chan",
+      ticker: "ARCHAN",
+      ca: "0xcomingsoon",
+      chain: "arc",
+      twitter: "",
+      dexscreener: "https://dexscreener.com/arc"
+    };
+
+    const ca = CONFIG.ca;
+    document.getElementById("ca-text").textContent = ca;
+    const live = /^0x[a-fA-F0-9]{40}$/.test(ca);
+    document.getElementById("ca-note").textContent = live
+      ? "This is the live contract. Copy it into the DEX."
+      : "Contract is not live yet. The address updates here when the token launches.";
+
+    const frame = document.getElementById("chart-frame");
+    if (live) {
+      const src = `https://dexscreener.com/${CONFIG.chain}/${ca}?embed=1&loadChartSettings=0&trades=0&tabs=0&info=0&chartLeftToolbar=0&chartTheme=dark&theme=dark&chartStyle=1&chartType=usd&interval=15`;
+      frame.innerHTML = `<iframe title="Dexscreener chart for Arc Chan" src="${src}"></iframe>`;
+    } else {
+      frame.innerHTML = `<div class="await"><div><div class="orb"></div><h3 style="font-family:Cinzel,serif;margin:0 0 8px;">The star chart is sleeping</h3><p class="sub" style="margin:0 auto;">Dexscreener embeds here the moment the Arc contract is a real address.</p></div></div>`;
+    }
+
+    const socials = document.getElementById("socials-row");
+    const twitterHref = CONFIG.twitter || "";
+    socials.innerHTML = `
+      <a class="social" href="${twitterHref || "#"}" ${twitterHref ? 'target="_blank" rel="noopener"' : ""}>
+        <div><strong>X / Twitter</strong><span>${twitterHref || "Link coming soon"}</span></div>
+        <small>${twitterHref ? "OPEN" : "SOON"}</small>
+      </a>
+      <a class="social" href="${CONFIG.dexscreener}" target="_blank" rel="noopener">
+        <div><strong>Dexscreener</strong><span>Arc chain markets</span></div>
+        <small>OPEN</small>
+      </a>
+    `;
+
+    async function copyCa() {
+      try {
+        await navigator.clipboard.writeText(ca);
+      } catch (err) {
+        const area = document.createElement("textarea");
+        area.value = ca;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+      }
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1400);
+    }
+    document.getElementById("copy").addEventListener("click", copyCa);
+    document.getElementById("nav-copy").addEventListener("click", copyCa);
+
+    const sky = document.getElementById("sky");
+    for (let i = 0; i < 40; i++) {
+      const star = document.createElement("span");
+      star.className = "star";
+      star.style.left = Math.random() * 100 + "%";
+      star.style.top = Math.random() * 100 + "%";
+      star.style.animationDelay = (Math.random() * 3) + "s";
+      sky.appendChild(star);
+    }
+    [[8, 18], [88, 30], [76, 78]].forEach(([x, y], i) => {
+      const shard = document.createElement("span");
+      shard.className = "shard";
+      shard.style.left = x + "%";
+      shard.style.top = y + "%";
+      shard.style.animationDelay = (i * 2) + "s";
+      sky.appendChild(shard);
+    });
+  </script>
+</body>
+</html>
